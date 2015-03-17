@@ -49,7 +49,7 @@ int App::exec() {
 	TCODMouse::showCursor(true);
 	TCODSystem::setFps(fpsGoal);
 
-	TCODConsole::root->setBackgroundColor(windowBackgroundColor);
+	TCODConsole::root->setDefaultBackground(windowBackgroundColor);
 
 	canvasCon = NULL;
 	solidCon = NULL;
@@ -89,7 +89,7 @@ int App::exec() {
 
 
 
-		TCODConsole::root->setBackgroundColor(windowBackgroundColor);
+		TCODConsole::root->setDefaultBackground(windowBackgroundColor);
 		TCODConsole::root->clear();
 
 		int blitSrcX;
@@ -161,30 +161,30 @@ void App::initBrushes() {
 			delete solidOverlayCon;
 
 		canvasCon = new TCODConsole(canvasWidth, canvasHeight);
-		canvasCon->setForegroundColor(brush1.fore);
-		canvasCon->setBackgroundColor(brush1.back);
+		canvasCon->setDefaultForeground(brush1.fore);
+		canvasCon->setDefaultBackground(brush1.back);
 		canvasCon->clear();
 
 		solidCon = new TCODConsole(canvasWidth, canvasHeight);
-		solidCon->setForegroundColor(TCODColor(0, 0, 0));
-		solidCon->setBackgroundColor(TCODColor(255, 255, 255));
+		solidCon->setDefaultForeground(TCODColor(0, 0, 0));
+		solidCon->setDefaultBackground(TCODColor(255, 255, 255));
 		solidCon->clear();
 
 		overlayCon = new TCODConsole(canvasWidth, canvasHeight);
-		overlayCon->setBackgroundColor(TCODColor(1, 2, 3)); // 1,2,3 is an uncommon color ;)
+		overlayCon->setDefaultBackground(TCODColor(1, 2, 3)); // 1,2,3 is an uncommon color ;)
 		overlayCon->setKeyColor(TCODColor(1, 2, 3));
 		overlayCon->clear();
 
 		solidOverlayCon = new TCODConsole(canvasWidth, canvasHeight);
-		solidOverlayCon->setBackgroundColor(TCODColor(1, 2, 3));
+		solidOverlayCon->setDefaultBackground(TCODColor(1, 2, 3));
 		solidOverlayCon->setKeyColor(TCODColor(1, 2, 3));
 		solidOverlayCon->clear();
 
 		for(int x = 0; x < canvasWidth; x++) {
 			for(int y = 0; y < canvasHeight; y++) {
 				canvasCon->setChar(x, y, ' ');
-				canvasCon->setFore(x, y, brush1.fore);
-				canvasCon->setBack(x, y, brush1.back);
+				canvasCon->setCharForeground(x, y, brush1.fore);
+				canvasCon->setCharBackground(x, y, brush1.back);
 			}
 		}
 		canvasModified = false;
@@ -237,9 +237,9 @@ CanvasImage* App::getCanvasImage() {
 	for(int x = 0; x < canvasWidth; x++) {
 		for(int y = 0; y < canvasHeight; y++) {
 			brush.symbol = canvasCon->getChar(x, y);
-			brush.fore = canvasCon->getFore(x, y);
-			brush.back = canvasCon->getBack(x, y);
-			if(solidCon->getBack(x, y) == TCODColor(0, 0, 255))
+			brush.fore = canvasCon->getCharForeground(x, y);
+			brush.back = canvasCon->getCharBackground(x, y);
+			if(solidCon->getCharBackground(x, y) == TCODColor(0, 0, 255))
 				brush.solid = true;
 			else
 				brush.solid = false;
@@ -256,12 +256,12 @@ void App::setCanvasImage(CanvasImage& canvasImg) {
 	for(int x = 0; x < canvasWidth; x++) {
 		for(int y = 0; y < canvasHeight; y++) {
 			canvasCon->setChar(x, y, canvasImg[x * canvasHeight + y].symbol);
-			canvasCon->setFore(x, y, canvasImg[x * canvasHeight + y].fore);
-			canvasCon->setBack(x, y, canvasImg[x * canvasHeight + y].back);
+			canvasCon->setCharForeground(x, y, canvasImg[x * canvasHeight + y].fore);
+			canvasCon->setCharBackground(x, y, canvasImg[x * canvasHeight + y].back);
 			if(canvasImg[x * canvasHeight + y].solid)
-				solidCon->setBack(x, y, TCODColor(0, 0, 255));
+				solidCon->setCharBackground(x, y, TCODColor(0, 0, 255));
 			else
-				solidCon->setBack(x, y, TCODColor(255, 255, 255));
+				solidCon->setCharBackground(x, y, TCODColor(255, 255, 255));
 		}
 	}
 
@@ -304,28 +304,28 @@ void App::doRedo() {
                         overlayCon->setChar(x, y, canvasCon->getChar(x, y));
 
                 if(gui->useForegroundToggleButton->isPressed())
-                        overlayCon->setFore(x, y, brush->fore);
+                        overlayCon->setCharForeground(x, y, brush->fore);
                 else
-                        overlayCon->setFore(x, y, canvasCon->getFore(x, y));
+                        overlayCon->setCharForeground(x, y, canvasCon->getCharForeground(x, y));
 
                 if(gui->useBackgroundToggleButton->isPressed())
-                        overlayCon->setBack(x, y, brush->back);
+                        overlayCon->setCharBackground(x, y, brush->back);
                 else
-                        overlayCon->setBack(x, y, canvasCon->getBack(x, y));
+                        overlayCon->setCharBackground(x, y, canvasCon->getCharBackground(x, y));
 
                 if(gui->useSolidToggleButton->isPressed()) {
                         if(brush->solid)
-                                solidOverlayCon->setBack(x, y, TCODColor(0, 0, 255));
+                                solidOverlayCon->setCharBackground(x, y, TCODColor(0, 0, 255));
                         else
-                                solidOverlayCon->setBack(x, y, TCODColor(255, 255, 255));
+                                solidOverlayCon->setCharBackground(x, y, TCODColor(255, 255, 255));
                 }
 	}
 
 void App::clearOverlay() {
-	overlayCon->setBackgroundColor(TCODColor(1, 2, 3));
+	overlayCon->setDefaultBackground(TCODColor(1, 2, 3));
 	overlayCon->clear();
 
-	solidOverlayCon->setBackgroundColor(TCODColor(1, 2, 3));
+	solidOverlayCon->setDefaultBackground(TCODColor(1, 2, 3));
 	solidOverlayCon->clear();
 }
 

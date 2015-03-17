@@ -31,11 +31,11 @@ void PickOperation::update() {
 		if(app->gui->pickSymbolToggleButton->isPressed())
 			brush->symbol = app->canvasCon->getChar(mouseX, mouseY);
 		if(app->gui->pickForegroundToggleButton->isPressed())
-			brush->fore = app->canvasCon->getFore(mouseX, mouseY);
+			brush->fore = app->canvasCon->getCharForeground(mouseX, mouseY);
 		if(app->gui->pickBackgroundToggleButton->isPressed())
-			brush->back = app->canvasCon->getBack(mouseX, mouseY);
+			brush->back = app->canvasCon->getCharBackground(mouseX, mouseY);
 		if(app->gui->pickSolidToggleButton->isPressed()) {
-			if(app->solidCon->getBack(mouseX, mouseY) == TCODColor(0, 0, 255)) {
+			if(app->solidCon->getCharBackground(mouseX, mouseY) == TCODColor(0, 0, 255)) {
 				brush->solid = true;
 			} else {
 				brush->solid = false;

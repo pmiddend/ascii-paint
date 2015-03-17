@@ -62,28 +62,28 @@ void TextOperation::update() {
 
 	if(!text.empty()) {
 		// Draw text
-		app->overlayCon->setBackgroundColor(brush->back);
-		app->overlayCon->setForegroundColor(brush->fore);
+		app->overlayCon->setDefaultBackground(brush->back);
+		app->overlayCon->setDefaultForeground(brush->fore);
 		for(unsigned int i = 0; i < text.size(); i++) {
 			app->overlayCon->setChar(textX + i, textY, text[i]);
 			// Yes this bit is pretty messy
 			// Basically it is a modified form of App::applyBrushToCell
 			// except that we are not concerned about the symbol
 			if(app->gui->useForegroundToggleButton->isPressed())
-				app->overlayCon->setFore(textX + i, textY, brush->fore);
+				app->overlayCon->setCharForeground(textX + i, textY, brush->fore);
 			else
-				app->overlayCon->setFore(textX + i, textY, app->canvasCon->getFore(textX + i, textY));
+				app->overlayCon->setCharForeground(textX + i, textY, app->canvasCon->getCharForeground(textX + i, textY));
 
 			if(app->gui->useBackgroundToggleButton->isPressed())
-				app->overlayCon->setBack(textX + i, textY, brush->back);
+				app->overlayCon->setCharBackground(textX + i, textY, brush->back);
 			else
-				app->overlayCon->setBack(textX + i, textY, app->canvasCon->getBack(textX + i, textY));
+				app->overlayCon->setCharBackground(textX + i, textY, app->canvasCon->getCharBackground(textX + i, textY));
 
 			if(app->gui->useSolidToggleButton->isPressed()) {
 				if(brush->solid)
-					app->solidOverlayCon->setBack(textX + i, textY, TCODColor(0, 0, 255));
+					app->solidOverlayCon->setCharBackground(textX + i, textY, TCODColor(0, 0, 255));
 				else
-					app->solidOverlayCon->setBack(textX + i, textY, TCODColor(255, 255, 255));
+					app->solidOverlayCon->setCharBackground(textX + i, textY, TCODColor(255, 255, 255));
 			}
 		}
 	}

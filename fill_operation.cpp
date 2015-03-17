@@ -36,9 +36,9 @@ void FillOperation::update() {
 
 		Brush currentCellBrush;
 		currentCellBrush.symbol = app->canvasCon->getChar(mouseX, mouseY);
-		currentCellBrush.fore = app->canvasCon->getFore(mouseX, mouseY);
-		currentCellBrush.back = app->canvasCon->getBack(mouseX, mouseY);
-		if(app->solidCon->getBack(mouseX, mouseY) == TCODColor(0, 0, 255))
+		currentCellBrush.fore = app->canvasCon->getCharForeground(mouseX, mouseY);
+		currentCellBrush.back = app->canvasCon->getCharBackground(mouseX, mouseY);
+		if(app->solidCon->getCharBackground(mouseX, mouseY) == TCODColor(0, 0, 255))
 			currentCellBrush.solid = true;
 		else
 			currentCellBrush.solid = false;
@@ -86,12 +86,12 @@ void FillOperation::doFill(int x, int y, Brush *oldBrush, Brush *newBrush) {
 }
 
 bool FillOperation::cellUsesBrush(int x, int y, Brush* brush) {
-	if(app->overlayCon->getBack(x, y) == brush->back &&
-			app->overlayCon->getFore(x, y) == brush->fore &&
+	if(app->overlayCon->getCharBackground(x, y) == brush->back &&
+			app->overlayCon->getCharForeground(x, y) == brush->fore &&
 			app->overlayCon->getChar(x, y) == brush->symbol) {
-		TCODColor col = app->solidOverlayCon->getBack(x, y);
-		if((brush->solid && app->solidOverlayCon->getBack(x, y) == TCODColor(0, 0, 255)) ||
-				(!brush->solid && app->solidOverlayCon->getBack(x, y) == TCODColor(255, 255, 255))) {
+		TCODColor col = app->solidOverlayCon->getCharBackground(x, y);
+		if((brush->solid && app->solidOverlayCon->getCharBackground(x, y) == TCODColor(0, 0, 255)) ||
+				(!brush->solid && app->solidOverlayCon->getCharBackground(x, y) == TCODColor(255, 255, 255))) {
 			return true;
 		}
 	}

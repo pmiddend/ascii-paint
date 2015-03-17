@@ -46,7 +46,7 @@ void ColorBox::drawColorGrid(TCODConsole *con, float saturation) {
 					col.setHSV(hue, sat, val);
 
                                         if(x < app->windowWidth && y < app->windowHeight)
-                                        con->setBack(x, y, col);
+                                        con->setCharBackground(x, y, col);
 				}
 			}
 		}
@@ -62,8 +62,9 @@ void ColorBox::onButtonClick() {
 
 	drawColorGrid(con, 1);
 
-
-	con->printCenter(app->windowWidth - 8, app->windowHeight - 1, TCOD_BKGND_SET, "Saturation");
+  con->setBackgroundFlag(TCOD_BKGND_SET);
+  con->setAlignment(TCOD_CENTER);
+	con->print(app->windowWidth - 8, app->windowHeight - 1, "Saturation");
 
 	con->flush();
 
@@ -88,22 +89,20 @@ void ColorBox::onButtonClick() {
 			drawColorGrid(con, 1 - ((float)mouse.cy)/windowHeight);
 		}
 
-		TCODColor col = con->getBack(mouse.cx, mouse.cy);
+		TCODColor col = con->getCharBackground(mouse.cx, mouse.cy);
 
 		// Draw the info box
-		con2->setBackgroundColor(TCODColor::black);
+		con2->setDefaultBackground(TCODColor::black);
 		con2->printFrame(0, 0, infoW, infoH, true, TCOD_BKGND_NONE, "Info");
-		con2->printLeft(1, 2, TCOD_BKGND_NONE,
-				"r: %i\ng: %i\nb: %i",
-				col.r, col.g, col.b);
+    con2->setAlignment(TCOD_LEFT);
+    con2->setBackgroundFlag(TCOD_BKGND_NONE);
+    con2->print(1,2,"r: %i\ng: %i\nb: %i",col.r, col.g, col.b);
 
 		float h, s, v;
 		col.getHSV(&h, &s, &v);
-		con2->printLeft(1, 6, TCOD_BKGND_NONE,
-				"h: %.0f\ns: %.0f\nv: %.0f\n",
-				h/360*255, s * 255, v * 255);
+		con2->print(1, 6, "h: %.0f\ns: %.0f\nv: %.0f\n", h/360*255, s * 255, v * 255);
 
-		con2->setBackgroundColor(col);
+		con2->setDefaultBackground(col);
 		con2->rect(7, 2, 7, 7, true);
 
 		con2->flush();
@@ -125,7 +124,7 @@ void ColorBox::onButtonClick() {
 
 		// Pressing left button chooses the color
 		if(mouse.lbutton_pressed) {
-			*colorToChange = con->getBack(mouse.cx, mouse.cy);
+			*colorToChange = con->getCharBackground(mouse.cx, mouse.cy);
 			break;
 		}
 	} while(key.vk != TCODK_ESCAPE);

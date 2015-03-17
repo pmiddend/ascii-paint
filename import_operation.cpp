@@ -131,7 +131,7 @@ void doImportForeCbk(Widget *wid, void *data) {
 
 		for(int y = 0; y < app->canvasHeight; y++) {
 			for(int x = 0; x < app->canvasWidth; x++) {
-				app->canvasCon->setFore(x, y, importImg.getPixel(x, y));
+				app->canvasCon->setCharForeground(x, y, importImg.getPixel(x, y));
 			}
 		}
 	}
@@ -183,7 +183,7 @@ void doImportBackCbk(Widget *wid, void *data) {
 
 		for(int y = 0; y < app->canvasHeight; y++) {
 			for(int x = 0; x < app->canvasWidth; x++) {
-				app->canvasCon->setBack(x, y, importImg.getPixel(x, y));
+				app->canvasCon->setCharBackground(x, y, importImg.getPixel(x, y));
 			}
 		}
 	}

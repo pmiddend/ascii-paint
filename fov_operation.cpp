@@ -21,7 +21,7 @@ void FovOperation::start() {
     map = new TCODMap(app->canvasWidth, app->canvasHeight);
     for(int x = 0; x < app->canvasWidth; x++) {
         for(int y = 0; y < app->canvasHeight; y++) {
-            if(app->solidCon->getBack(x, y) == TCODColor(255, 255, 255)) // No Solid
+            if(app->solidCon->getCharBackground(x, y) == TCODColor(255, 255, 255)) // No Solid
                 map->setProperties(x, y, true, true);
             else
                 map->setProperties(x, y, false, false);

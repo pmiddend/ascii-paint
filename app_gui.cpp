@@ -359,7 +359,7 @@ void AppGui::update() {
 		// control is not being pressed (because the user is not dragging the
 		// console) THEN update the gui
 		if(hideType != TOTAL_HIDE && !app->currentOperation->isActive() && !TCODConsole::isKeyPressed(TCODK_CONTROL))
-			Widget::updateWidgets(app->key);
+			Widget::updateWidgets(app->key,TCODMouse::getStatus());
 		
 		// Pressing TAB will hide/unhide GUI
 		if(app->key.vk == TCODK_TAB) {
@@ -381,7 +381,7 @@ void AppGui::draw() {
 	Widget::setForegroundColor(foregroundColor1, foregroundColor2);
 	Widget::setBackgroundColor(backgroundColor1, backgroundColor2);
 
-	guiCon->setBackgroundColor(TCODColor(255, 0, 255));
+	guiCon->setDefaultBackground(TCODColor(255, 0, 255));
 	guiCon->clear();
 	//overlayCon->setBackgroundColor(TCODColor(1, 1, 1));
 	//canvasCon->setBackgroundColor(TCODColor(255, 255, 255));
@@ -519,8 +519,8 @@ void changeSymbolCallback(Widget *wid, void *data) {
 	int xOffset = (AppUser::app->windowWidth - 35)/2;
 	int yOffset = (AppUser::app->windowHeight - 35)/2;
 	int spacing = 2;
-	TCODConsole::root->setBackgroundColor(TCODColor::black);
-	TCODConsole::root->setForegroundColor(TCODColor::white);
+	TCODConsole::root->setDefaultBackground(TCODColor::black);
+	TCODConsole::root->setDefaultForeground(TCODColor::white);
 	// Prio #1
         TCODConsole::root->printFrame(xOffset - 2, yOffset - 2, 35, 35, true, TCOD_BKGND_SET, "Select symbol");
 
@@ -554,11 +554,11 @@ void changeSymbolCallback(Widget *wid, void *data) {
 			// First give all the symbols a dark background
 			for(int tx = 0; tx < 16; tx++) {
 				for(int ty = 0; ty < 16; ty++) {
-					TCODConsole::root->setBack(xOffset + spacing * tx, yOffset + spacing * ty, TCODColor(0, 0, 0));
+					TCODConsole::root->setCharBackground(xOffset + spacing * tx, yOffset + spacing * ty, TCODColor(0, 0, 0));
 				}
 			}
 
-			TCODConsole::root->setBack(xOffset + spacing * x, yOffset + spacing * y, TCODColor(50, 50, 50));
+			TCODConsole::root->setCharBackground(xOffset + spacing * x, yOffset + spacing * y, TCODColor(50, 50, 50));
 			TCODConsole::root->flush();
 		}
 

@@ -43,7 +43,7 @@ void GetStringMessageBox::show() {
 
 	do {
 		key = TCODConsole::checkForKeypress();
-		Widget::updateWidgets(key);
+		Widget::updateWidgets(key,TCODMouse::getStatus());
 		Widget::renderWidgets();
 		TCODConsole::root->flush();
 	} while(key.vk != TCODK_ESCAPE);

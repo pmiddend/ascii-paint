@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-PROJECT(ascii-paint)
+project(ascii-paint)
 
 include_directories(include)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR})

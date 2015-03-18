@@ -37,7 +37,8 @@ ADD_EXECUTABLE(ascii-paint
     undo_operation.cpp
 )
 
-target_link_libraries(ascii-paint tcod tcodxx tcodgui)
+#target_link_libraries(ascii-paint tcod tcodxx tcodgui)
+target_link_libraries(ascii-paint tcod)
 
 INSTALL(TARGETS ascii-paint
     DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}

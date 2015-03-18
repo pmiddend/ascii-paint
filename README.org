@@ -23,3 +23,10 @@ for cmake to find.
      directory (next to the source files).
    * Build ascii-paint. In the root directory of ascii-paint: =mkdir build; cd build; cmake ..; make=. The binary will be generated in
      the "build" directory.
+   * You can now start ascii-paint from the root project directory (it needs
+     the =ascii-paint.cfg= file in its working directory).
+
+* status
+
+I got the executable to compile with libtcod again, but I did not test any
+functionality yet, so it might simply not work yet.

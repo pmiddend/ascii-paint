@@ -535,10 +535,9 @@ void changeSymbolCallback(Widget *wid, void *data) {
 	TCOD_mouse_t mouse;
 	char newSymbol;
 
-
 	// Loop until the user presses a valid or the user presses the left mouse button
 	do {
-		TCODSystem::waitForEvent(TCOD_EVENT_ANY,&key,&mouse);
+		TCODSystem::checkForEvent(TCOD_EVENT_ANY,&key,&mouse);
 
 		if(mouse.lbutton_pressed) {
 			break;

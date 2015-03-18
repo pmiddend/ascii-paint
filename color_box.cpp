@@ -77,7 +77,7 @@ void ColorBox::onButtonClick() {
 	TCODConsole *con2 = new TCODConsole(infoW, infoH);
 
 	do {
-		TCODSystem::waitForEvent(TCOD_EVENT_ANY,&key,&mouse);
+		TCODSystem::checkForEvent(TCOD_EVENT_MOUSE,&key,&mouse);
 
 		// If the mouse is on the gray zone on the right
 		if(mouse.cx > windowWidth - 16 && mouse.rbutton) {

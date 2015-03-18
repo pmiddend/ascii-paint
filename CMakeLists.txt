@@ -37,7 +37,8 @@ ADD_EXECUTABLE(ascii-paint
     undo_operation.cpp
 )
 
-#target_link_libraries(ascii-paint tcod tcodxx tcodgui)
+find_package(tcod)
+
 target_link_libraries(ascii-paint tcod)
 
 INSTALL(TARGETS ascii-paint

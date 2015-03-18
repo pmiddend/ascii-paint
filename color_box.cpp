@@ -77,11 +77,7 @@ void ColorBox::onButtonClick() {
 	TCODConsole *con2 = new TCODConsole(infoW, infoH);
 
 	do {
-		TCODSystem::sleepMilli(10); // To not stress out the processor too much
-
-		key = TCODConsole::checkForKeypress(true);
-		mouse = TCODMouse::getStatus();
-
+		TCODSystem::waitForEvent(TCOD_EVENT_ANY,&key,&mouse);
 
 		// If the mouse is on the gray zone on the right
 		if(mouse.cx > windowWidth - 16 && mouse.rbutton) {

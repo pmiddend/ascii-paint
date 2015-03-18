@@ -514,7 +514,6 @@ void changeSolidCbk(Widget *wid, void *data) {
 
 void changeSymbolCallback(Widget *wid, void *data) {
 	// data should be a pointer to a brush symbol eg &app->brush1.symbol
-
 	// Draw a grid of ASCII characters
 	int xOffset = (AppUser::app->windowWidth - 35)/2;
 	int yOffset = (AppUser::app->windowHeight - 35)/2;
@@ -536,10 +535,10 @@ void changeSymbolCallback(Widget *wid, void *data) {
 	TCOD_mouse_t mouse;
 	char newSymbol;
 
+
 	// Loop until the user presses a valid or the user presses the left mouse button
 	do {
-		key = TCODConsole::checkForKeypress();
-		mouse = TCODMouse::getStatus();
+		TCODSystem::waitForEvent(TCOD_EVENT_ANY,&key,&mouse);
 
 		if(mouse.lbutton_pressed) {
 			break;

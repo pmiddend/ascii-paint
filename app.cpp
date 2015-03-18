@@ -64,8 +64,7 @@ int App::exec() {
 	initOperations();
 
 	while(!quit && !TCODConsole::isWindowClosed()) {
-		key = TCODConsole::checkForKeypress();
-		mouse = TCODMouse::getStatus();
+		TCODSystem::checkForEvent(TCOD_EVENT_ANY,&key,&mouse);
 
 		if(!inTypingMode)
 			moveMouseWithKeyBoard();
@@ -211,9 +210,6 @@ void App::changeOperation(Operation *newOperation) {
 
 	overlayCon->clear();
 	gui->hideAllOptions();
-
-	// Refresh mouse(might remove this later)
-	//mouse = TCODMouse::getStatus();
 
 	currentOperation = newOperation;
 	currentOperation->start();
